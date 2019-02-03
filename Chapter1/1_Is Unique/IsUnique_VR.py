@@ -1,20 +1,23 @@
 # O(N)
 import unittest
 
+# O(c) space where c is length of charset
+# and O(n) time - using set
+# Is it ASCII set? Going for general solution instead
 
 def unique(string):
-    # Assuming character set is ASCII (128 characters)
-    if len(string) > 128:
-        return False
-
-    char_set = [False for _ in range(128)]
-    for char in string:
-        val = ord(char)
-        if char_set[val]:
-            # Char already found in string
+    seen_chars = set([])
+    for ch in string:
+        if ch in seen_chars:
             return False
-        char_set[val] = True
+        seen_chars.add(ch)
+    return True
 
+def unique_no_space(string):
+    string = sorted(string)
+    for idx in range(0, len(string)-1):
+        if string[idx] == string[idx + 1]:
+            return False
     return True
 
 
@@ -30,6 +33,16 @@ class Test(unittest.TestCase):
         # false check
         for test_string in self.dataF:
             actual = unique(test_string)
+            self.assertFalse(actual)
+
+    def test_unique_no_space(self):
+        # true check
+        for test_string in self.dataT:
+            actual = unique_no_space(test_string)
+            self.assertTrue(actual)
+        # false check
+        for test_string in self.dataF:
+            actual = unique_no_space(test_string)
             self.assertFalse(actual)
 
 if __name__ == "__main__":
