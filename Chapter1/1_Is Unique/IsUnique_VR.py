@@ -13,6 +13,8 @@ def unique(string):
         seen_chars.add(ch)
     return True
 
+# ord array if ASCII
+
 def unique_no_space(string):
     string = sorted(string)
     for idx in range(0, len(string)-1):
@@ -20,6 +22,8 @@ def unique_no_space(string):
             return False
     return True
 
+## Clarifying questions
+# - Is it ASCII or Unicode
 
 class Test(unittest.TestCase):
     dataT = [('abcd'), ('s4fad'), ('')]
